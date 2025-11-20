@@ -1,0 +1,74 @@
+{
+    "sliceName": "template",
+    "activate_slice": 1,
+    "serviceProfile": {
+        "sNSSAIList": [
+        ],
+        "pLMNIdList": [
+            {
+                "mcc": "999",
+                "mnc": "99"
+            }
+        ],
+        "maxNumberofUEs": 100,
+        "latency": 15,
+        "dLThptPerSlice": {
+            "thresholdValue": 500,
+            "maxThpt": 1000
+        },
+        "dLThptPerUE": {},
+        "uLThptPerSlice": {
+            "thresholdValue": 500,
+            "maxThpt": 1000
+        },
+        "uLThptPerUE": {},
+        "maxDLDataVolume": "1000 Mbps",
+        "maxULDataVolume": "1000 Mbps"
+    },
+    "networkSliceSubnet": {
+        "sliceProfile": {
+            "sNSSAIList": [
+            ],
+            "pLMNIdList": [
+                {
+                    "mcc": "999",
+                    "mnc": "99"
+                }
+            ],
+            "perfReq": {
+                "perfReqEmbbList": {
+                    "userDensity": 10,
+                    "activityFactor": 20
+                },
+                "perfReqUrllcList": {
+                    "CSAvailabilityTarget": 10,
+                    "cSReliabilityMeanTime": 10,
+                    "expDataRateDL": 10
+                }
+            },
+            "cNSliceSubnetProfile": {
+                "latency": 15,
+                "dLThptPerSliceSubnet": {},
+                "dLThptPerUEPerSubnet": {},
+                "uLThptPerSlicePerSubnet": {},
+                "uLThptPerUEPerSubnet": {},
+                "coverageAreaTAList": {
+                    "tac": [
+                        500
+                    ]
+                }
+            },
+            "rANSliceSubnetProfile": {
+                "coverageAreaTAList": {
+                    "tac": [
+                        500
+                    ]
+                },
+                "dLThptPerUEPerSubnet": {},
+                "uLThptPerUEPerSubnet": {}
+            }
+        },
+        "epTransport": {},
+        "operationalState": true
+    }
+}

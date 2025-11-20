@@ -1,0 +1,155 @@
+openapi: 3.0.4
+info:
+  title: North Node Adapter (NNA) REST API
+  description: This is the REST API for North Node Adapter (NNA) based on the OpenAPI 3.0 specification
+  contact:
+    email: jani.pellikka@oulu.fi
+  version: 1.0.0
+tags:
+  - name: experiment
+    description: Operations about experiment
+paths:
+  /experiment:
+    get:
+      tags:
+        - experiment
+      summary: Get status information of all running experiments.
+      description: Get status information of all running experiments.
+      operationId: experimentAllRead
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentArray'
+    post:
+      tags:
+        - experiment
+      summary: Create and start a new experiment.
+      description: Create and start a new experiment.
+      operationId: experimentCreate
+      requestBody:
+        description: Create and start a new experiment.
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/Nst'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentData'
+        '400':
+          description: Invalid request or invalid NST
+  /experiment/{experimentId}:
+      get:
+        tags:
+          - experiment
+        summary: Get status information of a specific experiment.
+        description: Get status information of a specific experiment.
+        operationId: experimentRead
+        parameters:
+          - name: experimentId
+            in: path
+            description: ID of experiment to return
+            required: true
+            schema:
+              type: integer
+              format: int64
+        responses:
+          '200':
+            description: Successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Experiment'
+          '404':
+            description: Experiment not found
+      delete:
+        tags:
+          - experiment
+        summary: Stop and delete an experiment.
+        description: Stop and delete an experiment.
+        operationId: experimentDelete
+        parameters:
+          - name: experimentId
+            in: path
+            description: Experiment ID to delete
+            required: true
+            schema:
+              type: integer
+              format: int64
+        responses:
+          '200':
+            description: Experiment stopped and deleted
+            content:
+              text/plain:
+                schema:
+                  type: string
+                  example: |-
+                    2025-10-16 12:46:35.312: Set DL slice allocation; Time=1760607995312, Slice1=0.6147, Slice2=0.3853
+                    2025-10-16 12:46:35.312: Set UL slice allocation; Time=1760607995312, Slice1=0.6455, Slice2=0.3545
+          '404':
+            description: Experiment not found
+components:
+  schemas:
+    Slice:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5480f617-8d26-4ece-8b5a-a811b08f0012
+        type:
+          type: string
+          example: uRLLC
+    Experiment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        state:
+          type: string
+          example: error
+          enum:
+            - ready
+            - initialize
+            - execute
+            - cleanup
+            - done
+            - error
+        message:
+          type: string
+          example: Starting Qosium measurements failed
+    ExperimentArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Experiment'
+    ExperimentData:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        defaultSliceId:
+          type: string
+          example: b84725bc-955a-44bb-9327-21c9d7eb5f65
+        slices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Slice'
+    Nst:
+      type: object
+      properties:
+        nst:
+          type: string
+          description: Network Slice Template (NST)
+          example: '{"trialId": 1, "startTime": "2025-09-30T11:53:00Z", "stopTime": "2025-09-30T11:54:00Z", "slices": ["eMBB", "uRLLC"], "applications": ["Nginx", "Nginx"]}'
+      required:
+        - nst

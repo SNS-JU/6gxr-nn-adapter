@@ -1,0 +1,26 @@
+{
+  "defaultSliceId": "b84725bc-955a-44bb-9327-21c9d7eb5f65",
+  "slices": [
+    {
+      "id": "5480f617-8d26-4ece-8b5a-a811b08f0012",
+      "sNSSAIList": [{"sst": 1, "sd": "000003"}],
+      "downlinkOvsInterface": "cumucore-upf4-ranup-vhost",
+      "uplinkOvsInterface": "cumucore-upf4-n6-vhost"
+    },
+    {
+      "id": "c969da01-609b-4c71-ae96-1bece0ebf6c2",
+      "sNSSAIList": [{"sst": 1, "sd": "000002"}],
+      "downlinkOvsInterface": "cumucore-upf5-ranup-vhost",
+      "uplinkOvsInterface": "cumucore-upf5-n6-vhost"
+    }
+  ],
+  "qosiumBaseUrl": "http://172.29.12.66:8080",
+  "aiBaseUrl": "http://172.29.6.15:5000",
+  "cumucoreBaseUrl": "https://172.29.19.2:3000",
+  "osmBaseUrl": "http://10.50.150.103:5001",
+  "ovsHostName": "172.29.2.11",
+  "ovsHostPort": 6640,
+  "updateIntervalSeconds": 1,
+  "maxDownlinkBandwidth": 200000,
+  "maxUplinkBandwidth": 120000
+}
